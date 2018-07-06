@@ -37,7 +37,9 @@ request("https://www.nytimes.com/?auth=login-smartlock", function(error, respons
 });
 
 
-require("./routes/routes.js")(app);
+require("./routes/articles.js")(app);
+require("./routes/comments.js")(app);
+require("./routes/saved.js")(app);
 
 db.sequelize.sync({}).then(function () {
     app.listen(PORT, function () {

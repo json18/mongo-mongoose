@@ -5,7 +5,7 @@ var db = require("../models");
 module.exports = function(app) {
 
   // GET route for browsing all of the scraped articles
-  app.get("/scraped/browse", function(req, res) {
+  app.get("/", function(req, res) {
     // findAll returns all entries for a table when used with no options
     db.Article.findAll({}).then(function(dbArticle) {
       // We have access to the todos as an argument inside of the callback function
