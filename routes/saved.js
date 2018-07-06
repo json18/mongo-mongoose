@@ -36,7 +36,7 @@ module.exports = function(app) {
 
   // DELETE route for deleting todos. We can get the id of the todo to be deleted from
   // req.params.id
-  app.delete("/api/todos/:id", function(req, res) {
+  app.delete("/saved/:id", function(req, res) {
     // We just have to specify which todo we want to destroy with "where"
     db.Todo.destroy({
       where: {

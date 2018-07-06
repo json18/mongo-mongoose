@@ -1,10 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    var Saved = sequelize.define("Saved", {
+    var Article = sequelize.define("Article", {
 
     });
 
-    Saved.associate = function (models) {
+    Article.associate = function (models) {
   
     };
     return Saved;
