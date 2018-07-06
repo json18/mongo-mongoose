@@ -18,7 +18,7 @@ module.exports = function(app) {
     // and complete property
     db.Comments.create({
       title: req.body.text,
-      
+
     }).then(function(dbComments) {
       // We have access to the new todo as an argument inside of the callback function
       res.json(dbComments);
@@ -39,11 +39,11 @@ module.exports = function(app) {
 
   });
 
-  // PUT route for updating todos. We can get the updated todo data from req.body
-  app.put("/comments/update", function(req, res) {
+  // PUT route for updating comments. We can get the updated comment data from req.body
+  app.put("/comments/update/:id", function(req, res) {
     // Update takes in an object describing the properties we want to update, and
     // we use where to describe which objects we want to update
-    db.Todo.update({
+    db.Comments.update({
       text: req.body.text,
       complete: req.body.complete
     }, {
