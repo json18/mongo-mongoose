@@ -31,7 +31,7 @@ request("https://www.nytimes.com/?auth=login-smartlock", function(error, respons
             link:link
         });
     });
-    console.log(results);
+    console.log("THIS IS RESULTS: ", results);
     
     
 });
