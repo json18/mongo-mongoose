@@ -2,15 +2,22 @@ const cheerio = require("cheerio");
 const request = require("request");
 var express = require("express");
 var bodyParser = require("body-parser");
+var handlebars = require ("express-handlebars");
+
 
 var app = express();
 var PORT = process.env.PORT || 8080;
 
 var db = require("./models");
+var articles = require("./routes/articles.js")(app);
+
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
+app.engine("handlebars", handlebars({defaultLayout: "home"}))
+app.set("view engine", "handlebars");
 
 console.log("\n******************************************\n" +
             "Grabbing every article headline and link\n" +
@@ -22,22 +29,35 @@ request("https://www.nytimes.com/?auth=login-smartlock", function(error, respons
     let $ = cheerio.load(html);
     let results = [];
 
-    $("h2.story-heading").each(function(i, element) {   
-        var title = $(element).text();
-        var link = $(element).children("a").attr("href");
-       // var summary = $(element).
+    $("article").each(function(i, element) {   
+        var title = $(element).children("h2").text();
+        var link = $(element).children("h2.story-heading").children("a").attr("href");
+        var summary = $(element).children("p").text("summary");
         results.push({
             title:title,
-            link:link
+            link:link,
+            summary:summary
         });
+
     });
-    console.log("THIS IS RESULTS: ", results);
-    
+    console.log("THIS IS RESULTS: ", results); 
+
+
+    db.Article.update({
+        //push results here. Might be create not update because nothing in databse yet.
+    }).then(function(dbArticle) {
+      res.json(dbArticle);
+    });
+        
+    })
     
 });
 
 
-require("./routes/articles.js")(app);
+//require("./routes/articles.js")(app);
+
+
+
 require("./routes/comments.js")(app);
 require("./routes/saved.js")(app);
 
