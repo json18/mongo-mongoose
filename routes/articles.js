@@ -6,9 +6,7 @@ module.exports = function(app) {
 
   //GET route for browsing all of the scraped articles
   app.get("/", function(req, res) {
-    // findAll returns all entries for a table when used with no options
     db.Article.findAll({}).then(function(dbArticle) {
-      // We have access to the todos as an argument inside of the callback function
       res.json("String Testing");
     });
   });
@@ -19,7 +17,6 @@ module.exports = function(app) {
     }).then(function(dbArticle) {
       res.json(dbArticle);
     });
-
   });
 
   // PUT route for scraping new articles. 
@@ -30,5 +27,18 @@ module.exports = function(app) {
     });
   });
 
+  // app.get("/", function(req, res) {
+  //   res.render("home", results);
+  // });
+  
+  // app.get("/scraped/clear", function(req, res) {
+  //   res.render("clear", results);
+  // });
+  
+  // app.get("/scraped/new", function(req, res) {
+  //   res.render("new", results);
+  // });
 
 };
+
+
